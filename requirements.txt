@@ -2,8 +2,8 @@ fastapi==0.124.2
 uvicorn[standard]
 python-dotenv==1.2.1
 facenet-pytorch==2.6.0
-torch==2.2.2
-torchvision==0.17.2
+torch
+torchvision
 opencv-python==4.11.0.86
 python-multipart==0.0.20
 scikit-learn==1.8.0
