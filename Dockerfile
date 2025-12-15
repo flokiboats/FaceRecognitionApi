@@ -1,22 +1,31 @@
-# Use official Python slim image
 FROM python:3.11-slim
 
-# Set working directory
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Copy only requirements first (for caching)
+# System deps (minimal)
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first (cache layer)
 COPY requirements.txt .
 
-# Upgrade pip and install dependencies
-# Install PyTorch CPU wheels first
+# Install pip deps
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir torch==2.9.1+cpu torchvision==0.24.1+cpu --index-url https://download.pytorch.org/whl/cpu \
-    && pip install --no-cache-dir -r requirements.txt 
-# Copy the rest of the app
+    && pip install --no-cache-dir \
+       torch==2.2.2+cpu torchvision==0.17.2+cpu \
+       --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir -r requirements.txt
+
+# Copy app AFTER deps
 COPY . .
 
-# Expose port
 EXPOSE 8000
 
-# Command to run FastAPI app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

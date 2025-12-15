@@ -1,0 +1,17 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+venv
+.env.*
+data
+datasets
+models
+weights
+checkpoints
+*.pt
+*.pth
+notebooks
