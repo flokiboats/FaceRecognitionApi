@@ -81,10 +81,10 @@ class EmbeddingController:
         record_id = f"{user_id}_{uuid.uuid4().hex}"
         face_b64 = self.face_to_base64(face)
 
-        try:
-            self.save_cropped_face(face, user_id=user_id, idx=0)
-        except Exception:
-            pass
+        # try:
+        #     self.save_cropped_face(face, user_id=user_id, idx=0)
+        # except Exception:
+        #     pass
 
         embedding = embedding / np.linalg.norm(embedding)
         self.collection.add(
@@ -102,10 +102,10 @@ class EmbeddingController:
             aug_metadata = metadata.copy()
             aug_metadata["augmented"] = True
             aug_id = f"{user_id}_aug_{i}_{uuid.uuid4().hex}"
-            try:
-                self.save_cropped_face(aug_face, user_id=aug_id, idx=i)
-            except Exception:
-                pass
+            # try:
+            #     self.save_cropped_face(aug_face, user_id=aug_id, idx=i)
+            # except Exception:
+            #     pass
 
             aug_embedding = aug_embedding / np.linalg.norm(aug_embedding)
             self.collection.add(
@@ -124,10 +124,10 @@ class EmbeddingController:
         for idx, (face, emb) in enumerate(zip(faces, embeddings)):
             meta = metadata.copy() if metadata else {}
             meta.update({"user_id": user_id})
-            try:
-                self.save_cropped_face(face, user_id=user_id, idx=idx)
-            except Exception:
-                pass
+            # try:
+            #     self.save_cropped_face(face, user_id=user_id, idx=idx)
+            # except Exception:
+            #     pass
 
             record_id = f"{user_id}_{idx}_{datetime.now().timestamp()}"
 
