@@ -1,10 +1,10 @@
-# Build stage
+# Builder
 FROM python:3.11-slim AS builder
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --prefix=/install -r requirements.txt
 
-# Final stage
+# Final image
 FROM python:3.11-slim
 COPY --from=builder /install /usr/local
 COPY . /app
