@@ -10,7 +10,7 @@ scikit-learn==1.8.0
 seaborn==0.13.2
 matplotlib==3.10.8
 numpy==1.26.4
-pillow==10.2.0
+pillow
 pydantic-settings
 chromadb
 ultralytics
