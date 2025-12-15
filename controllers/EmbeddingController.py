@@ -5,10 +5,11 @@ from datetime import datetime
 import numpy as np
 import torch
 from facenet_pytorch import MTCNN, InceptionResnetV1
-from ultralytics import YOLO
+#from ultralytics import YOLO
 from helpers.db import get_chroma
 import uuid
-
+class YOLO:
+    pass  # Placeholder for YOLO class since ultralytics is not being used
 from helpers.Augmentions import FaceAugmentor
 
 class EmbeddingController:
@@ -16,7 +17,8 @@ class EmbeddingController:
         self.client, self.collection = get_chroma()
         self.detection_model = DETECTION_MODEL
         if DETECTION_MODEL == "yoloface":
-            self.detector = YOLO(model=YOLOFACE_MODEL_PATH)
+            #self.detector = YOLO(model=YOLOFACE_MODEL_PATH)
+            pass
         else:
             self.detector = MTCNN(
                 image_size=160,
@@ -34,8 +36,9 @@ class EmbeddingController:
 
     def detect_faces(self, image):
         if isinstance(self.detector, YOLO):
-            results = self.detector(image)
-            boxes = results[0].boxes.xyxy.cpu().numpy()
+            #results = self.detector(image)
+            #boxes = results[0].boxes.xyxy.cpu().numpy()
+            pass
         else:
             boxes, _ = self.detector.detect(image)
             if boxes is None:
